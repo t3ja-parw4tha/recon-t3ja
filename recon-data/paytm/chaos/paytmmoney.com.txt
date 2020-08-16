@@ -1,0 +1,5 @@
+www.paytmmoney.com
+staging.paytmmoney.com
+devops.paytmmoney.com
+blog.paytmmoney.com
+dev.paytmmoney.com

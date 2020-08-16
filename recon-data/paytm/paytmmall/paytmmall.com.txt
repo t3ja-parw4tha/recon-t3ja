@@ -1,0 +1,71 @@
+
+20-www.paytmmall.com
+20.paytmmall.com
+253awww.paytmmall.com
+2b-www.paytmmall.com
+3awww.paytmmall.com
+A total of 33 subdomains were found for domain paytmmall.com 👽 in 5 seconds.⏲️
+Good luck Hax0r 💀!
+Searching in the AnubisDB API... 🔍
+Searching in the Archive.org API... 🔍
+Searching in the Bufferover API... 🔍
+Searching in the CertSpotter API... 🔍
+Searching in the Crtsh database API... 🔍
+Searching in the Facebook API... 🔍
+Searching in the Sublist3r API... 🔍
+Searching in the Threatcrowd API... 🔍
+Searching in the Threatminer API... 🔍
+Searching in the Urlscan.io API... 🔍
+Searching in the Virustotal API... 🔍
+Target ==> paytmmall.com
+The Facebook API has failed returning the following HTTP status: 403 Forbidden
+affiliate.paytmmall.com
+beta.paytmmall.com
+blog.paytmmall.com
+branding.paytmmall.com
+c2i-dev.paytmmall.com
+campusicon.paytmmall.com
+campusicons.paytmmall.com
+cb-dev.paytmmall.com
+cb.paytmmall.com
+cdn1-offer.paytmmall.com
+cdn1-vibe.paytmmall.com
+cdn2-offer.paytmmall.com
+cdn2-vibe.paytmmall.com
+cdn3-offer.paytmmall.com
+cdn3-vibe.paytmmall.com
+crossborder.paytmmall.com
+dev1.paytmmall.com
+dev2.paytmmall.com
+email.paytmmall.com
+exchange-productservice-staging.paytmmall.com
+exchange-productservice.paytmmall.com
+fulfillment-dev.cb.paytmmall.com
+gobig.paytmmall.com
+middleware-beta.paytmmall.com
+middleware-staging.paytmmall.com
+middleware.paytmmall.com
+ncb.paytmmall.com
+nws.paytmmall.com
+nwww.blog.paytmmall.com
+owasp_needs_upgrade_failed_to_send_a_nonce.paytmmall.com
+paytmmall-pdpquerywebapp-staging.paytmmall.com
+paytmmall.com
+pos-api.paytmmall.com
+pos-dev.paytmmall.com
+psp.paytmmall.com
+seller-dev.paytmmall.com
+seller-dev.ws.paytmmall.com
+seller-staging.paytmmall.com
+seller.paytmmall.com
+serviceability.paytmmall.com
+staging.paytmmall.com
+test.paytmmall.com
+tracking.paytmmall.com
+url1358.paytmmall.com
+vibe.paytmmall.com
+wholesale-dev.paytmmall.com
+wholesale.paytmmall.com
+ws.paytmmall.com
+www.blog.paytmmall.com
+www.paytmmall.com
