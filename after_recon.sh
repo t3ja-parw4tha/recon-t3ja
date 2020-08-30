@@ -44,6 +44,17 @@ scanSuspect(){
 
 
 
+mkdir js
+cat $CUR_DIR/httprobe.txt | subjs| tee -a js/js.txt
+cd js
+cat js.txt | concurl -c 5
+cat ../waybackurls.txt |egrep -iv '\.json'|grep -iE '\.js'|antiburl|awk '{print $4}' | xargs -I %% bash -c 'python3 /opt/tools/secretfinder/SecretFinder.py -i %% -o cli' 2> /dev/null | tee -a secrets.txt
+cat $CUR_DIR/js.txt |egrep -iv '\.json'|grep -iE '\.js'|antiburl|awk '{print $4}' | xargs -I %% bash -c 'python3 /opt/tools/secretfinder/SecretFinder.py -i %% -o cli' 2> /dev/null | tee -a secrets.txt
+cat js.txt | while read url;do python3 /opt/tools/content-discovery/JS/LinkFinder/linkfinder.py -d -i $url -o cli;done > exdpoints.txt
+cd
+
+
+
 nuclei_auto(){
         echo "Starting Nuclei"
         mkdir nuclei_op
@@ -55,7 +66,4 @@ nuclei_auto(){
         nuclei -l httprobe.txt -t "/opt/tools/nuclei-templates/tokens/" -c 60 -o nuclei_op/tokens.txt
         nuclei -l httprobe.txt -t "/opt/tools/nuclei-templates/vulnerabilities/" -c 60 -o nuclei_op/vulnerabilities.txt
 }
-
-
-
 
