@@ -60,7 +60,7 @@ do
         mkdir endpoints/$domain
         for file in $(ls scriptsresponse/$domain)
         do
-                ruby ~/tools/relative-url-extractor/extract.rb scriptsresponse/$domain/$file >> endpoints/$domain/$file 
+                ruby /opt/tools/content-discovery/JS/relative-url-extractor/extract.rb scriptsresponse/$domain/$file >> endpoints/$domain/$file 
         done
 done
 
@@ -73,4 +73,15 @@ jsep
 
 cat endpoints/*/* | sort -u | tee -a endpoints.txt
 
+
+
+
 for i in $(cat alive.txt);do ffuf -u $i/FUZZ -w ~/tools/dirsearch/db/dicc.txt -mc 200 -t 60 ;done| tee -a ffuf_op.txt
+
+
+
+
+
+
+
+
