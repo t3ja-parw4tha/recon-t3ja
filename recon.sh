@@ -1,13 +1,6 @@
 
 ##!/bin/bash
 
-
-#formatting the data to json
-#cat alive.txt | python -c "import sys; import json; print (json.dumps({'domains':list(sys.stdin)}))" > alive.json
-#cat domains.txt | python -c "import sys; import json; print (json.dumps({'domains':list(sys.stdin)}))" > domains.json
-
-
-
 #running findomain
 echo "Running findomain"
 findomain -t $1 -u $1.txt
@@ -69,6 +62,7 @@ cat op.txt | sort -u | tee -a all.txt
 rm op.txt
 
 #running massdns 
+echo "#####running massdns#####"
 massdns -r /opt/tools/subdomain-enum/subbrute/resolvers.txt -t A -o S -w output.txt all.txt 
 cat output.txt | cut -d" " -f3 | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | tee -a ips.txt
 
@@ -82,3 +76,16 @@ cat all.txt | httprobe --prefer-https >> httprobe.txt
 cat all.txt | httpx -title -content-length -status-code | tee -a httpx.txt
 
 rm output.txt
+
+
+#formatting the data to json
+#cat alive.txt | python -c "import sys; import json; print (json.dumps({'domains':list(sys.stdin)}))" > alive.json
+#cat domains.txt | python -c "import sys; import json; print (json.dumps({'domains':list(sys.stdin)}))" > domains.json
+
+
+
+
+
+
+
+
