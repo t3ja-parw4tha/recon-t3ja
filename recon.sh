@@ -25,7 +25,7 @@ subfinder -d $1 -recursive | tee -a $1.txt
 
 #running censys
 echo "Running censys"
-python3 /opt/tools/censys-subdomain-finder/censys_subdomain_finder.py $1 | tee -a $1.txt
+python3 /opt/tools/subdomain-enum/censys-subdomain-finder/censys_subdomain_finder.py $1 | tee -a $1.txt
 
 #running github-subdomains.py
 echo "Running Gthub-subdomains.py"
