@@ -52,7 +52,13 @@ echo "Removing dupes"
 sort -u $1.txt -o all.txt
 rm $1.txt
 
-#scanning for 3rd level domains
+#compiling 3rd level domains
+cat all.txt | grep -Po "(\w+\.\w+\.\w+\)$" | sort -u >> third-level.txt
+
+echo "Gathering full third-level domains with assetfinder,subfinder,sublist3r,amass....."
+for domain in $(cat third-level.txt); do sublist3r -d $domain -o third-levels/$domain.txt | sort -u >> all.txt:done
+for domain in $(cat third-level.txt); do assetfinder --subs-only $domain | tee -a third-levels/$domain.txt | sort -u >> all.txt:done
+for domain in $(cat third-level.txt); do amass enum --passive -d $domain | tee -a third-levels/$domain.txt | sort -u >> all.txt:done
 
 
 #running shuffledns
