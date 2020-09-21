@@ -27,6 +27,10 @@ subfinder -d $1 -recursive | tee -a $1.txt
 echo "Running censys"
 python3 /opt/tools/subdomain-enum/censys-subdomain-finder/censys_subdomain_finder.py $1 | tee -a $1.txt
 
+#running chaos
+echo "Running Chaos"
+chaos -d $1 -silent | tee -a $1.txt
+
 #running github-subdomains.py
 echo "Running Gthub-subdomains.py"
 python3 /opt/tools/subdomain-enum/github-subdomains.py -t $github_subdomains_token -d $1 | sort -u >> $1.txt
@@ -47,6 +51,9 @@ curl -ss https://dns.bufferover.run/dns?q=.$1 | jq '.FDNS_A[]' | sed 's/^\".*.,/
 echo "Removing dupes"
 sort -u $1.txt -o all.txt
 rm $1.txt
+
+#scanning for 3rd level domains
+
 
 #running shuffledns
 echo "#####starting shuffledns#####"
