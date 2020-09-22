@@ -49,7 +49,6 @@ chaos -d $1 -silent | tee -a $1.txt
 echo -e "${BLUE}Removing dupes.......${RESET}"
 sort -u $1.txt -o all.txt
 rm $1.txt
--------------------------------------------------------------------------------------------------------------------------------------------------------------
 cd functions
 
 function 1crt(){
@@ -128,11 +127,11 @@ function 15rapiddns() {
 cd ../
 cat functions/*.txt >> all.txt
 rm -rf functions
-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
 sort -u all.txt -o all.txt
 
 #compiling 3rd level domains
-cat all.txt | grep -Po "(\w+\.\w+\.\w+\)$" | sort -u >> third-level.txt
+cat all.txt | grep -Po "(\w+\.\w+\.\w+)$" | sort -u >> third-level.txt
 
 echo -e "${BLUE}Gathering full third-level domains with assetfinder,sublist3r...${RESET}"
 for domain in $(cat third-level.txt); do sublist3r -d $domain -o third-levels/$domain.txt;done
