@@ -16,37 +16,37 @@ RED="\033[1;31m"
 RESET="\033[0m"
 
 #running findomain
-echo -e "${RED}Running findomain${RESET}"
+echo -e "${RED}Running findomain......${RESET}"
 findomain -t $1 -u $1.txt
 
 #starting sublist3r
-echo -e "${RED}Running Sublist3r${RESET}"
+echo -e "${RED}Running Sublist3r.......${RESET}"
 python /opt/tools/subdomain-enum/Sublist3r/sublist3r.py -d $1 -v -o subs.txt
 cat subs.txt | tee -a $1.txt
 rm subs.txt
 
 #running amass
-echo -e "${RED}Running Amass${RESET}"
+echo -e "${RED}Running Amass.......${RESET}"
 amass enum --passive -d $1 | tee -a $1.txt
 
 #running assetfinder
-echo -e "${RED}Running assetfinder${RESET}"
+echo -e "${RED}Running assetfinder.......${RESET}"
 assetfinder --subs-only $1 | tee -a $1.txt
 
 #running subfinder
-echo -e "${RED}Running Subfinder${RESET}"
+echo -e "${RED}Running Subfinder.......${RESET}"
 subfinder -d $1 -recursive | tee -a $1.txt
 
 #running censys
-echo -e "${RED}Running censys${RESET}"
+echo -e "${RED}Running censys......${RESET}"
 python3 /opt/tools/subdomain-enum/censys-subdomain-finder/censys_subdomain_finder.py $1 | tee -a $1.txt
 
 #running chaos
-echo -e "${RED}Running Chaos${RESET}"
+echo -e "${RED}Running Chaos......${RESET}"
 chaos -d $1 -silent | tee -a $1.txt
 
 #removing duplicate entries
-echo -e "${BLUE}Removing dupes${RESET}"
+echo -e "${BLUE}Removing dupes.......${RESET}"
 sort -u $1.txt -o all.txt
 rm $1.txt
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -166,6 +166,7 @@ echo -e "${BLUE}Checking for alive domains....${RESET}"
 cat all.txt | httprobe --prefer-https >> httprobe.txt
 cat all.txt | httpx -title -content-length -status-code | tee -a httpx.txt
 
+rm -rf third-levels
 
 #formatting the data to json
 #cat alive.txt | python -c "import sys; import json; print (json.dumps({'domains':list(sys.stdin)}))" > alive.json
