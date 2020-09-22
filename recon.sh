@@ -7,7 +7,7 @@ mkdir functions
 GREEN="\033[1;32m"
 BLUE="\033[1;36m"
 RED="\033[1;31m"
-RESET="\033[0m
+RESET="\033[0m"
 
 #running findomain
 echo -e "${RED}Running findomain${RESET}"
