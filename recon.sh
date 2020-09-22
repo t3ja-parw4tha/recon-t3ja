@@ -1,8 +1,14 @@
 
 ##!/bin/bash
 
-mkdir third-levels
-mkdir functions
+if [ ! -d "third-levels" ]; then
+	mkdir third-levels
+fi
+
+if [ ! -d "functions" ]; then
+	mkdir functions
+fi
+
 
 GREEN="\033[1;32m"
 BLUE="\033[1;36m"
