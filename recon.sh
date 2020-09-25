@@ -140,7 +140,7 @@ rm op.txt
 echo -e "${BLUE}#####running massdns#####${RESET}"
 massdns -r /opt/tools/subdomain-enum/subbrute/resolvers.txt -t A -o S -w output.txt all.txt 
 cat output.txt | cut -d" " -f3 | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | tee -a ips.txt
-
+rm output.txt
 
 #removing duplicate entries
 sort -u all.txt -o all.txt 
