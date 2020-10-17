@@ -1,8 +1,12 @@
 ##!/bin/bash
 
+if [ ! -d "wayback-data" ]; then
+	mkdir wayback-data
+fi
+
 mkdir wayback-data
 echo -e "\e[91m-------------------gau Scan Started--------------------------------------------------\e[0m"
-cat all.txt | xargs -n1 -P4 -I{} gau -subs {} | tee -a wayback-data/gau.txt
+cat httprobe.txt | xargs -n1 -P4 -I{} gau -subs {} | tee -a wayback-data/gau.txt
 
 echo -e "\e[91m-------------------hakrawler Started-------------------------------------------------\e[0m"
 cat all.txt | hakrawler -depth 3 -plain | tee wayback-data/hakrawler.txt
