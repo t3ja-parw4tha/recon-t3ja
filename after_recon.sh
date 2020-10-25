@@ -48,7 +48,10 @@ scanSuspect(){
 
 
 
-mkdir js
+if [ ! -d "js" ]; then
+	mkdir js
+fi
+
 cat httprobe.txt | subjs | tee -a js/js.txt
 cd js
 cat js.txt | concurl -c 5
