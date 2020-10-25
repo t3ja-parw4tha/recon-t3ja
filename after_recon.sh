@@ -6,13 +6,13 @@ fi
 
 mkdir wayback-data
 echo -e "\e[91m-------------------gau Scan Started--------------------------------------------------\e[0m"
-cat httprobe.txt | xargs -n1 -P4 -I{} gau -subs {} | tee -a wayback-data/gau.txt
+cat httprobe.txt | gau | tee -a wayback-data/gau.txt
 
 echo -e "\e[91m-------------------hakrawler Started-------------------------------------------------\e[0m"
-cat all.txt | hakrawler -depth 3 -plain | tee wayback-data/hakrawler.txt
+cat httprobe.txt | hakrawler -depth 3 -plain | tee wayback-data/hakrawler.txt
 
 echo -e "\e[91m-------------------waybackurls Scan Started------------------------------------------\e[0m"
-cat all.txt | xargs -n1 -P4 -I{} waybackurls {} | tee -a wayback-data/wb.txt
+waybackurls $1 | tee -a wayback-data/wb.txt
   
 # Grouping endpoints
 cat wayback-data/gau.txt wayback-data/wb.txt wayback-data/hakrawler.txt | sort -u > wayback-data/waybackurls.txt
