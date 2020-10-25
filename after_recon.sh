@@ -20,11 +20,11 @@ rm wayback-data/gau.txt
 rm wayback-data/wb.txt
 rm wayback-data/hakrawler.txt
 
-cat wayback-data/waybackurls.txt | unfurl --unique keys | tee -a  $CUR_DIR/wayback-data/unique_keys.txt
-cat wayback-data/waybackurls.txt | grep -P "\w+\.js(\?|$) | sort -u" | tee -a $CUR_DIR/wayback-data/jsurls.txt
-cat wayback-data/waybackurls.txt | grep -P "\w+\.php(\?|$) | sort -u" | tee -a  $CUR_DIR/wayback-data/phpurls.txt
-cat wayback-data/waybackurls.txt | grep -P "\w+\.aspx(\?|$) | sort -u" | tee -a  $CUR_DIR/wayback-data/aspxurls.txt
-cat wayback-data/waybackurls.txt | grep -P "\w+\.jsp(\?|$) | sort -u" | tee -a  $CUR_DIR/wayback-data/jspurls.txt
+cat wayback-data/waybackurls.txt | unfurl --unique keys | tee -a  wayback-data/unique_keys.txt
+cat wayback-data/waybackurls.txt | grep -P "\w+\.js(\?|$) | sort -u" | tee -a wayback-data/jsurls.txt
+cat wayback-data/waybackurls.txt | grep -P "\w+\.php(\?|$) | sort -u" | tee -a  wayback-data/phpurls.txt
+cat wayback-data/waybackurls.txt | grep -P "\w+\.aspx(\?|$) | sort -u" | tee -a  wayback-data/aspxurls.txt
+cat wayback-data/waybackurls.txt | grep -P "\w+\.jsp(\?|$) | sort -u" | tee -a  wayback-data/jspurls.txt
 
 
 scanSuspect(){
@@ -49,13 +49,13 @@ scanSuspect(){
 
 
 mkdir js
-cat $CUR_DIR/httprobe.txt | subjs| tee -a js/js.txt
+cat httprobe.txt | subjs | tee -a js/js.txt
 cd js
 cat js.txt | concurl -c 5
-cat ../waybackurls.txt |egrep -iv '\.json'|grep -iE '\.js'|antiburl|awk '{print $4}' | xargs -I %% bash -c 'python3 /opt/tools/secretfinder/SecretFinder.py -i %% -o cli' 2> /dev/null | tee -a secrets.txt
+cat ../wayback-data/waybackurls.txt |egrep -iv '\.json'|grep -iE '\.js'|antiburl|awk '{print $4}' | xargs -I %% bash -c 'python3 /opt/tools/secretfinder/SecretFinder.py -i %% -o cli' 2> /dev/null | tee -a secrets.txt
 cat $CUR_DIR/js.txt |egrep -iv '\.json'|grep -iE '\.js'|antiburl|awk '{print $4}' | xargs -I %% bash -c 'python3 /opt/tools/secretfinder/SecretFinder.py -i %% -o cli' 2> /dev/null | tee -a secrets.txt
 cat js.txt | while read url;do python3 /opt/tools/content-discovery/JS/LinkFinder/linkfinder.py -d -i $url -o cli;done > exdpoints.txt
-cd
+cd ..
 
 
 
