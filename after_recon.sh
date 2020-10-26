@@ -66,7 +66,7 @@ cat jsurls.txt | while read url;do python3 /opt/tools/content-discovery/JS/LinkF
 cd ..
 
 echo -e "\e[91m-------------------creating custom wordlists------------------------------------------\e[0m"
-for script in $(cat jsurls.txt);do python3 ~/teja/scripts/getjswords.py $script | sort -u |tee -a jswordlist.txt ;done
+for script in $(cat js/jsurls.txt);do python3 ~/teja/scripts/getjswords.py $script | sort -u |tee -a jswordlist.txt ;done
 
 
 nuclei_auto(){
