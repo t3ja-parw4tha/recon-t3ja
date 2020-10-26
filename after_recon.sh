@@ -21,10 +21,10 @@ rm wayback-data/wb.txt
 rm wayback-data/hakrawler.txt
 
 cat wayback-data/waybackurls.txt | unfurl --unique keys | tee -a  wayback-data/unique_keys.txt
-cat wayback-data/waybackurls.txt | grep -P "\w+\.js(\?|$) | sort -u" | tee -a wayback-data/jsurls.txt
-cat wayback-data/waybackurls.txt | grep -P "\w+\.php(\?|$) | sort -u" | tee -a  wayback-data/phpurls.txt
-cat wayback-data/waybackurls.txt | grep -P "\w+\.aspx(\?|$) | sort -u" | tee -a  wayback-data/aspxurls.txt
-cat wayback-data/waybackurls.txt | grep -P "\w+\.jsp(\?|$) | sort -u" | tee -a  wayback-data/jspurls.txt
+cat wayback-data/waybackurls.txt | grep -P "\w+\.js(\?|$)" | sort -u | tee -a wayback-data/js.txt
+cat wayback-data/waybackurls.txt | grep -P "\w+\.php(\?|$)" | sort -u | tee -a  wayback-data/phpurls.txt
+cat wayback-data/waybackurls.txt | grep -P "\w+\.aspx(\?|$)" | sort -u | tee -a  wayback-data/aspxurls.txt
+cat wayback-data/waybackurls.txt | grep -P "\w+\.jsp(\?|$)" | sort -u | tee -a  wayback-data/jspurls.txt
 
 
 scanSuspect(){
@@ -53,13 +53,20 @@ if [ ! -d "js" ]; then
 fi
 
 cat httprobe.txt | subjs | tee -a js/js.txt
+cat wayback-data/js.txt >> js/js.txt
+cat js/js.txt | sort -u > js/jsurls.txt
+rm js/js.txt
+rm wayback-data/js.txt
+
 cd js
-cat js.txt | concurl -c 5
+cat jsurls.txt | concurl -c 5
 cat ../wayback-data/waybackurls.txt |egrep -iv '\.json'|grep -iE '\.js'|antiburl|awk '{print $4}' | xargs -I %% bash -c 'python3 /opt/tools/secretfinder/SecretFinder.py -i %% -o cli' 2> /dev/null | tee -a secrets.txt
-cat $CUR_DIR/js.txt |egrep -iv '\.json'|grep -iE '\.js'|antiburl|awk '{print $4}' | xargs -I %% bash -c 'python3 /opt/tools/secretfinder/SecretFinder.py -i %% -o cli' 2> /dev/null | tee -a secrets.txt
-cat js.txt | while read url;do python3 /opt/tools/content-discovery/JS/LinkFinder/linkfinder.py -d -i $url -o cli;done > exdpoints.txt
+cat jsurls.txt |egrep -iv '\.json'|grep -iE '\.js'|anti-burl|awk '{print $4}' | xargs -I %% bash -c 'python3 /opt/tools/secretfinder/SecretFinder.py -i %% -o cli' 2> /dev/null | tee -a secrets.txt
+cat jsurls.txt | while read url;do python3 /opt/tools/content-discovery/JS/LinkFinder/linkfinder.py -d -i $url -o cli;done > endpoints.txt
 cd ..
 
+echo -e "\e[91m-------------------creating custom wordlists------------------------------------------\e[0m"
+for script in $(cat jsurls.txt);do python3 ~/teja/scripts/getjswords.py $script | sort -u |tee -a jswordlist.txt ;done
 
 
 nuclei_auto(){
