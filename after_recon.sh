@@ -82,5 +82,4 @@ nuclei_auto(){
 }
 
 
-tnotify "recon iypoyindhi ra arey"
 
