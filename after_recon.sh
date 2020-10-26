@@ -81,3 +81,6 @@ nuclei_auto(){
         nuclei -l httprobe.txt -t "/opt/tools/nuclei-templates/vulnerabilities/" -c 60 -o nuclei_op/vulnerabilities.txt
 }
 
+
+tnotify "recon iypoyindhi ra arey"
+
