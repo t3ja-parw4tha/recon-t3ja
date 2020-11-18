@@ -81,7 +81,7 @@ for script in $(cat js/jsurls.txt);do python3 ~/teja/scripts/getjswords.py $scri
 mkdir fuzzresults
 for script in $(cat httprobe.txt);do ffuf -c -w jswordlist.txt -u $script/FUZZ -mc 200,402,403,302,500 -maxtime 300 -timeout 2 | tee -a fuzzresults/$script.txt | tnotify "fuzzing is done"
 
-python3 ~/tools/theHarvester/theHarvester.py -d mypaytm.com -l 500 -b google
+python3 ~/tools/theHarvester/theHarvester.py -d $1 -l 500 -b google | tee -a harvester.txt
 
 python3 ~/tools/GitDorker/GitDorker.py -tf ~/tools/GitDorker/TOKENSFILE -q $1 -d ~/tools/GitDorker/dorks/alldorks.txt -o gitdorks.txt
 
